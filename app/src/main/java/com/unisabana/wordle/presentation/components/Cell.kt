@@ -91,9 +91,36 @@ fun RowCells(
 }
 
 @Composable
-fun Grid(solution: String, currentWord: String, attempts: List<String>, size: Int) {
-    for (i in 0..6) {
-        RowCells("     ", size = size)
+fun Grid(
+    solution: String,
+    attempts: List<String>,
+    currentWord: String,
+    size: Int,
+    maxAttempts: Int = 6
+) {
+    Column {
+        // Show previous attempts
+        attempts.forEach { attempt ->
+            RowCells(
+                str = attempt.padEnd(5, ' '),
+                wordTarget = solution,
+                size = size
+            )
+        }
+
+        // Show current attempt
+        if (attempts.size < maxAttempts) {
+            RowCells(
+                str = currentWord.padEnd(5, ' '),
+                size = size
+            )
+        }
+
+        // Fill empty spaces
+        val remainingAttempts = maxAttempts - attempts.size - 1
+        for (i in 0 until remainingAttempts) {
+            RowCells(" ".repeat(5), size = size)
+        }
     }
 }
 

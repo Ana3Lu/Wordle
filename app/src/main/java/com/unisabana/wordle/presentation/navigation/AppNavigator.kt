@@ -1,12 +1,14 @@
 package com.unisabana.wordle.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.unisabana.wordle.presentation.screens.game.GameScreen
 import com.unisabana.wordle.presentation.screens.HomeScreen
 import com.unisabana.wordle.presentation.screens.ScoreScreen
+import com.unisabana.wordle.presentation.screens.game.GameViewModel
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -27,8 +29,13 @@ fun AppNavigator() {
             )
         }
         composable<ScoreDestination> {
+            val gameViewModel: GameViewModel = viewModel()
+
             ScoreScreen(
-                onBack = { navController.popBackStack() }
+                onBack = {
+                    gameViewModel.resetGame()
+                    navController.navigate(HomeDestination)
+                }
             )
         }
     }

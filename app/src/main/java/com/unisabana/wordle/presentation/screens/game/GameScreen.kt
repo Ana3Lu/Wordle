@@ -27,7 +27,6 @@ fun GameScreen(
     gameViewModel: GameViewModel = viewModel()
 ) {
     val sizeMatrixCell = 65
-    val attempCount = 6
 
     Scaffold (
         topBar = {
@@ -63,7 +62,16 @@ fun GameScreen(
                 )
 
                 Spacer(modifier = Modifier.height(70.dp))
-                AppButton("Submit", gameViewModel::onSubmit)
+                AppButton("Submit") {
+                    gameViewModel.onSubmit(
+                        onWin = {
+                            onSubmit()
+                        },
+                        onLose = {
+                            onSubmit()
+                        }
+                    )
+                }
             }
         }
     }

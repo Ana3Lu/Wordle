@@ -26,16 +26,21 @@ class GameViewModel: ViewModel() {
 
     fun onRemoveLetter() {
         if (currentWord.isNotEmpty()) {
-            currentWord.dropLast(1)
+            currentWord = currentWord.dropLast(1)
         }
     }
 
-    fun onSubmit() {
-
-        // to check the word
-
+    fun onSubmit(
+        onWin: () -> Unit = {},
+        onLose: () -> Unit = {}
+    ) {
         if (currentWord.length == 5) {
             attempts += currentWord
+            if (currentWord.equals(solution, ignoreCase = true)) {
+                onWin()
+            } else if (attempts.size >= 6) {
+                onLose()
+            }
             currentWord = ""
         }
     }
