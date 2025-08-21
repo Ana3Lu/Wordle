@@ -26,8 +26,6 @@ fun GameScreen(
     onSubmit: () -> Unit,
     gameViewModel: GameViewModel = viewModel()
 ) {
-    val sizeMatrixCell = 65
-
     Scaffold (
         topBar = {
             TopBar("WORDLE", onBack)
@@ -52,7 +50,7 @@ fun GameScreen(
                         solution = gameViewModel::solution.get(),
                         attempts = gameViewModel::attempts.get(),
                         currentWord = gameViewModel::currentWord.get(),
-                        size = sizeMatrixCell
+                        size = 65
                     )
                 }
 

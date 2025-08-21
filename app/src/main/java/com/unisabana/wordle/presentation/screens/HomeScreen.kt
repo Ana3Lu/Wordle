@@ -14,10 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,8 +28,6 @@ import androidx.compose.ui.unit.sp
 import com.unisabana.wordle.presentation.components.AppButton
 import com.unisabana.wordle.presentation.components.CellType
 import com.unisabana.wordle.presentation.components.RowCells
-import com.unisabana.wordle.presentation.navigation.GameDestination
-import com.unisabana.wordle.presentation.navigation.ScoreDestination
 
 @Composable
 fun HomeScreen(onPlay: () -> Unit, onLeaderboard: () -> Unit) {
