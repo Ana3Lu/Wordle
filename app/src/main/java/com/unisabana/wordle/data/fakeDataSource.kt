@@ -13,12 +13,6 @@ val words = listOf<String>(
     "TABLE"
 )
 
-//enum class category
-
-/*fun getRandomWord(category: Int): String {
-    return words.random()
-}*/
-
 fun getRandomWord(): String {
     return words.random()
 }

@@ -17,20 +17,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.unisabana.wordle.presentation.components.TopBar
+import com.unisabana.wordle.presentation.screens.game.GameViewModel
 
 @Composable
-fun ScoreScreen(onBack: () -> Unit) {
-    val scores = listOf(
-        "Name one" to "score",
-        "Name two" to "score",
-        "Name one" to "score",
-        "Name two" to "score",
-        "Name one" to "score",
-        "Name two" to "score",
-        "Name one" to "score",
-        "Name two" to "score"
-    )
+fun ScoreScreen(
+    onBack: () -> Unit,
+    viewModel: GameViewModel
+) {
+    val scores = viewModel.getAllScores()
 
     Scaffold (
         topBar = { TopBar("Leaderboard", onBack) }
@@ -46,9 +42,9 @@ fun ScoreScreen(onBack: () -> Unit) {
                 modifier = Modifier
                     .padding(55.dp)
             ) {
-                itemsIndexed(scores) { index, (name, score) ->
+                itemsIndexed(scores) { index, score ->
                     Text(
-                        text = "${index + 1}. $name - $score",
+                        text = "${index + 1}. ${score.name} - ${score.score}",
                         color = Color.White,
                         modifier = Modifier.padding(10.dp),
                         style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -59,10 +55,11 @@ fun ScoreScreen(onBack: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun PreviewScoreScreen() {
-    ScoreScreen(
-        onBack = {}
-    )
+fun ScoreScreenPreview() {
+    val viewModel: GameViewModel = viewModel()
+    ScoreScreen(onBack = {}, viewModel = viewModel)
 }
+
+

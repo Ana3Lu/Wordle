@@ -29,20 +29,20 @@ fun Key(char:Char, onPress: (char: Char) -> Unit, onRemove: () -> Unit) {
 
     Box(
         modifier = Modifier
-            .height(43.dp)
+            .height(44.dp)
             .width(
                 when {
-                    char == '⌫' -> 45.dp
-                    isLastRow -> 38.dp
-                    else -> 35.dp
+                    char == '⌫' -> 48.dp
+                    isLastRow -> 41.dp
+                    else -> 38.dp
                 }
-            ).padding(vertical = 1.2.dp, horizontal = 1.4.dp)
+            ).padding(vertical = 1.2.dp, horizontal = 1.5.dp)
             .background(Color(0xFF404752), shape = RoundedCornerShape(5.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text(
             char.toString(),
-            fontSize = if (char == '⌫') 18.sp else 14.sp,
+            fontSize = if (char == '⌫') 15.sp else 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
             modifier = Modifier.clickable {
@@ -75,7 +75,7 @@ fun RowKeys(
 
 @Composable
 fun Keyboard(onRemove: () -> Unit, onKeyPressed: (Char) -> Unit) {
-    val rows = listOf<String>("QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM⌫")
+    val rows = listOf("QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM⌫")
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         for (i in rows.indices) {
@@ -87,7 +87,7 @@ fun Keyboard(onRemove: () -> Unit, onKeyPressed: (Char) -> Unit) {
                     Spacer(modifier = Modifier.height(5.dp))
                 }
             } else {
-                RowKeys(rows[i], onRemove, onKeyPressed, extraPadding = 32.dp)
+                RowKeys(rows[i], onRemove, onKeyPressed, extraPadding = 12.dp)
             }
         }
     }

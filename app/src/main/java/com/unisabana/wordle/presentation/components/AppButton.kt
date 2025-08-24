@@ -27,7 +27,7 @@ fun AppButton(str: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(30.dp))
-            .height(35.dp)
+            .height(36.dp)
             .width(320.dp)
             .background(Color(0xFF6BAA65), shape = RoundedCornerShape(20.dp))
             .clickable(
@@ -41,7 +41,7 @@ fun AppButton(str: String, onClick: () -> Unit) {
             str,
             color = Color.White,
             fontWeight = FontWeight.Bold,
-            fontSize = 10.sp
+            fontSize = 11.sp
         )
     }
 }
