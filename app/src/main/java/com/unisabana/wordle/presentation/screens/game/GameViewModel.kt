@@ -53,7 +53,7 @@ class GameViewModel(
                 isGameFinished = true
                 pendingScore = points
             } else if (attempts.size >= 6) {
-                showMessage = "You lose..."
+                showMessage = "You lose... \nThe word was $solution"
                 isGameFinished = true
                 pendingScore = 0
             }

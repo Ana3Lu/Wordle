@@ -103,9 +103,20 @@ fun GameScreen(
                 if (askName) {
                     AlertDialog(
                         onDismissRequest = { },
-                        title = { Text("Save score") },
+                        title = { Text("Game Over") },
                         text = {
                             Column {
+                                Text("Word to guess: ${gameViewModel.solution}", fontWeight = FontWeight.Bold)
+
+                                Spacer(Modifier.height(10.dp))
+
+                                Text("Your attempts:", fontWeight = FontWeight.SemiBold)
+                                gameViewModel.attempts.forEachIndexed { i, attempt ->
+                                    Text("${i + 1}. $attempt")
+                                }
+
+                                Spacer(Modifier.height(16.dp))
+
                                 Text("Enter your name:", style = TextStyle(fontWeight = FontWeight.Bold))
                                 OutlinedTextField(
                                     value = playerName,
@@ -127,7 +138,6 @@ fun GameScreen(
                             }) {
                                 Text("Save")
                             }
-
                         }
                     )
                 }
