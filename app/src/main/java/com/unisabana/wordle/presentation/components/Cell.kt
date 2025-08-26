@@ -96,13 +96,13 @@ fun Grid(
     attempts: List<String>,
     currentWord: String,
     size: Int,
-    maxAttempts: Int = 6
+    maxAttempts: Int
 ) {
     Column {
         // Show previous attempts
         attempts.forEach { attempt ->
             RowCells(
-                str = attempt.padEnd(5, ' '),
+                str = attempt.padEnd(solution.length, ' '),
                 wordTarget = solution,
                 size = size
             )
@@ -111,7 +111,7 @@ fun Grid(
         // Show current attempt
         if (attempts.size < maxAttempts) {
             RowCells(
-                str = currentWord.padEnd(5, ' '),
+                str = currentWord.padEnd(solution.length, ' '),
                 size = size
             )
         }
@@ -119,7 +119,7 @@ fun Grid(
         // Fill empty spaces
         val remainingAttempts = maxAttempts - attempts.size - 1
         for (i in 0 until remainingAttempts) {
-            RowCells(" ".repeat(5), size = size)
+            RowCells(" ".repeat(solution.length), size = size)
         }
     }
 }

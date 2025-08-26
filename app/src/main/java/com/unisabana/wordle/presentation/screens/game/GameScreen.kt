@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.unisabana.wordle.data.WordLength
 import com.unisabana.wordle.presentation.components.AppButton
 import com.unisabana.wordle.presentation.components.Grid
 import com.unisabana.wordle.presentation.components.Keyboard
@@ -67,7 +68,8 @@ fun GameScreen(
                         solution = gameViewModel::solution.get(),
                         attempts = gameViewModel::attempts.get(),
                         currentWord = gameViewModel::currentWord.get(),
-                        size = 65
+                        size = if (gameViewModel::wordLength.get() == WordLength.SIX) 55 else 65,
+                        maxAttempts = gameViewModel::maxAttempts.get()
                     )
                 }
 

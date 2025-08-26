@@ -1,22 +1,26 @@
 package com.unisabana.wordle.presentation.screens.game
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unisabana.wordle.data.ScoreEntity
 import com.unisabana.wordle.data.ScoreRepository
-import com.unisabana.wordle.data.getRandomWord
+import com.unisabana.wordle.data.WordLength
 import kotlinx.coroutines.launch
 
 class GameViewModel(
     private val scoreRepository: ScoreRepository
 ): ViewModel() {
 
-    // Atributos
-    var solution by mutableStateOf(getRandomWord())
+    // Attributes
+    var wordLength by mutableStateOf(WordLength.FIVE)
+        private set
+    var maxAttempts by mutableIntStateOf(6)
+        private set
+    var solution by mutableStateOf(wordLength.getRandomWord())
         private set
     var currentWord by mutableStateOf("")
         private set
@@ -31,9 +35,19 @@ class GameViewModel(
     var scores by mutableStateOf<List<ScoreEntity>>(emptyList())
         private set
 
-    // Funciones
+    // Func
+    fun setDifficulty(length: WordLength) {
+        wordLength = length
+        maxAttempts = when (length) {
+            WordLength.FOUR -> 7
+            WordLength.SIX -> 5
+            else -> 6
+        }
+        resetGame()
+    }
+
     fun onKeyPressed(letter: Char) {
-        if (currentWord.length < 5) {
+        if (currentWord.length < wordLength.size) {
             currentWord += letter
         }
     }
@@ -45,14 +59,14 @@ class GameViewModel(
     }
 
     fun onSubmit() {
-        if (currentWord.length == 5) {
+        if (currentWord.length == wordLength.size) {
             attempts += currentWord
             if (currentWord.equals(solution, ignoreCase = true)) {
-                val points = (6 - attempts.size) * 10 // More points for fewer attempts
+                val points = (maxAttempts - attempts.size + 1) * 10 // More points for fewer attempts
                 showMessage = "You win!"
                 isGameFinished = true
                 pendingScore = points
-            } else if (attempts.size >= 6) {
+            } else if (attempts.size >= maxAttempts) {
                 showMessage = "You lose... \nThe word was $solution"
                 isGameFinished = true
                 pendingScore = 0
@@ -88,7 +102,10 @@ class GameViewModel(
 
     fun resetGame() {
         attempts = emptyList()
-        solution = getRandomWord()
+        solution = wordLength.getRandomWord()
         currentWord = ""
+        isGameFinished = false
+        pendingScore = null
+        showMessage = null
     }
 }

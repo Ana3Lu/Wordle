@@ -3,11 +3,11 @@ package com.unisabana.wordle.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.unisabana.wordle.data.ScoreRepository
+import com.unisabana.wordle.data.WordLength
 import com.unisabana.wordle.data.WordleDatabase
 import com.unisabana.wordle.presentation.screens.game.GameScreen
 import com.unisabana.wordle.presentation.screens.HomeScreen
@@ -28,7 +28,10 @@ fun AppNavigator() {
     NavHost(navController = navController, startDestination = HomeDestination) {
         composable<HomeDestination> {
             HomeScreen(
-                onPlay = { navController.navigate(GameDestination) },
+                onPlay = { length: WordLength ->
+                    viewModel.setDifficulty(length)
+                    navController.navigate(GameDestination)
+                },
                 onLeaderboard = { navController.navigate(ScoreDestination) }
             )
         }
